@@ -1,0 +1,16 @@
+
+
+
+
+--> SP Get Person By Person ID:
+
+CREATE PROCEDURE SP_GetPersonByPersonID 
+	@PersonID INT
+AS
+BEGIN
+
+	SELECT *
+	FROM People
+	WHERE People.PersonID = @PersonID;
+
+END 

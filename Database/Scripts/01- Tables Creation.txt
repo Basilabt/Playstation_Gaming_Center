@@ -1,0 +1,45 @@
+CREATE DATABASE PlaystationGamingCenter_DB;
+
+USE PlaystationGamingCenter_DB;
+
+
+CREATE TABLE People 
+(
+   PersonID		INT PRIMARY KEY IDENTITY(1,1) ,
+   FirstName	NVARCHAR(200) NOT NULL ,
+   SecondName	NVARCHAR(200) NOT NULL ,
+   ThirdName    NVARCHAR(200) NOT NULL , 
+   LastName     NVARCHAR(200) NOT NULL , 
+   Gender		BIT NOT NULL ,
+   PhoneNumber  NVARCHAR(200) NOT NULL ,
+   Email		NVARCHAR(200) NOT NULL
+)
+
+
+CREATE TABLE Admins 
+(
+	AdminID  INT PRIMARY KEY IDENTITY(1,1) ,
+	PersonID INT NOT NULL  ,
+	Username NVARCHAR(200) NOT NULL ,
+	Password NVARCHAR(200) NOT NULL ,
+
+	CONSTRAINT Admins_PersonID_FK FOREIGN KEY (PersonID) REFERENCES People(PersonID)
+)
+
+
+
+CREATE TABLE Reservations 
+(
+	ReservationID   INT PRIMARY KEY IDENTITY(1,1) ,
+	AdminID         INT NOT NULL ,
+	CustomerName    NVARCHAR(200) NOT NULL ,
+	ReservationDate DATE NOT NULL ,
+	StartTime		TIME NOT NULL ,
+	EndTime			TIME NOT NULL , 
+	PlayHours       FLOAT NOT NULL ,
+	PaidAmmount		FLOAT NOT NULL 
+
+
+	CONSTRAINT Reservations_AdminID_FK FOREIGN KEY (AdminID) REFERENCES Admins(AdminID)
+)
+

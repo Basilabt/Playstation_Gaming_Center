@@ -1,0 +1,41 @@
+
+----> Reservation View Creation:
+
+
+CREATE VIEW Reservations_View AS
+	SELECT Reservations.ReservationID , People.FirstName + ' ' + People.LastName AS Admin , Reservations.CustomerName , Reservations.ReservationDate , Reservations.StartTime , Reservations.EndTime , Reservations.PlayHours , Reservations.PaidAmmount
+	FROM Reservations INNER JOIN Admins ON Reservations.AdminID = Admins.AdminID INNER JOIN People ON Admins.PersonID = People.PersonID;
+
+
+----> SP Get All Reservations:
+
+
+CREATE PROCEDURE SP_GetAllReservations 
+AS
+BEGIN
+
+	SELECT *
+	FROM Reservations_View;
+
+END 
+
+
+
+----> SP Log Reservation:
+
+CREATE PROCEDURE SP_LogReservation
+	@AdminID  INT,
+	@CustomerName NVARCHAR(200),
+	@ReservationDate DATE ,
+	@StartTime TIME ,
+	@EndTime TIME ,
+	@PlayedHours FLOAT , 
+	@PaidAmmount FLOAT
+AS
+BEGIN
+
+	INSERT INTO 
+	Reservations(AdminID,CustomerName,ReservationDate,StartTime,EndTime,PlayHours,PaidAmmount)
+	VALUES(@AdminID,@CustomerName,@ReservationDate,@StartTime,@EndTime,@PlayedHours,@PaidAmmount);
+
+END
